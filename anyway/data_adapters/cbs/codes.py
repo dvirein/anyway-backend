@@ -2,6 +2,9 @@ COL_CODE_FIELDS_DATA = 'MS_TAVLA'
 COL_NAME_COL_DATA = 'SADE_ENG'
 COL_CODE_COL_DATA = 'SEMEL_MILON'
 
+COL_NAME_COL_JUNCTION = 'SHEM_ZOMET'
+COL_CODE_JUNCTION = 'zomet'
+
 
 def get_data_code_map_json(df, col_code_map, translate_languages):
     df = df.loc[df[COL_CODE_FIELDS_DATA] != 0]
@@ -26,6 +29,21 @@ def get_col_code_map_json(column_mapping_df):
     for field in column_mapping_df.values.tolist():
         column_mapping_json[field[0]] = str(int(field[1]))
     return column_mapping_json
+
+
+def get_non_urban_code_map_json(mapping_df):
+    mapping_df = mapping_df[[COL_NAME_COL_JUNCTION, COL_CODE_JUNCTION]]
+    mapping_df = mapping_df.drop_duplicates()
+    column_mapping_json = {}
+    for field in mapping_df.values.tolist():
+        column_mapping_json[field[0]] = str(int(field[1]))
+    return column_mapping_json
+
+
+def get_street_map_json(street_mapping_df):
+    street_mapping_json = {}
+    for field in street_mapping_df.values.tolist():
+        street_mapping_json[field[0]] = str(int(field[1]))
 
 
 def translate(text, desired_language, current_language='hebrew'):
