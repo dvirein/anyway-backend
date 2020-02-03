@@ -22,6 +22,20 @@ def get_data_code_map_json(df, col_code_map, translate_languages):
     return mapping_dict
 
 
+def update_nested_mapping(key_code, value, mapping_dict, translate_languages):
+    mapping_dict[key_code] = field_nested_translating(value, translate_languages)
+    return mapping_dict
+
+
+def field_nested_translating(value, translate_languages):
+    for code in value.keys():
+        language = {'hebrew': value[code]}
+        for lang in translate_languages:
+            language[lang] = translate(value[code], lang)
+        value[code] = language
+    return value
+
+
 def get_col_code_map_json(column_mapping_df):
     column_mapping_df = column_mapping_df[[COL_NAME_COL_DATA, COL_CODE_COL_DATA]]
     column_mapping_df = column_mapping_df[column_mapping_df.SEMEL_MILON.notnull()]
@@ -33,14 +47,17 @@ def get_col_code_map_json(column_mapping_df):
 
 def get_non_urban_code_map_json(mapping_df):
     mapping_df = mapping_df[[COL_NAME_COL_JUNCTION, COL_CODE_JUNCTION]]
-    mapping_df = mapping_df.drop_duplicates()
+    mapping_df = mapping_df.drop_duplicates(COL_CODE_JUNCTION)
     column_mapping_json = {}
     for field in mapping_df.values.tolist():
-        column_mapping_json[field[0]] = str(int(field[1]))
+        column_mapping_json[str(field[1])] = str(field[0])
     return column_mapping_json
 
 
 def get_street_map_json(street_mapping_df):
+    #TODO: pre step - create an concat ishuv+semel_rehov
+    #TODO: read thhe mapping street as concat ishuv+semel_rehov
+    #TODO: add json values to SHEM_RECHOV
     street_mapping_json = {}
     for field in street_mapping_df.values.tolist():
         street_mapping_json[field[0]] = str(int(field[1]))

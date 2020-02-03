@@ -28,6 +28,10 @@ def get_dt(path):
     dt_search = re.search('.*\\\H(\d{6})\d+\\\.*\.csv', path)
     return dt_search.group(1)
 
+def generate_id_column(df, columns, new_column_name):
+    # TODO: concat columns, add to DF, return
+    pass
+
 
 def _drop_unnecessary_columns(df, allowed_columns):
     drop_columns = [column for column in df.columns.values if column not in allowed_columns]
@@ -35,3 +39,4 @@ def _drop_unnecessary_columns(df, allowed_columns):
         logging.warning(f"Unknown columns has been found: {drop_columns} consider add to mapping fields names")
     df = df.drop(columns=drop_columns)
     return df
+

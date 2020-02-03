@@ -3,7 +3,7 @@ import logging
 import pandas as pd
 
 from anyway.data_adapters.cbs.config import convert_fields, value_languages
-from anyway.data_adapters.cbs.codes import get_col_code_map_json, get_non_urban_code_map_json
+from anyway.data_adapters.cbs.codes import get_col_code_map_json, get_non_urban_code_map_json, update_nested_mapping
 from anyway.data_adapters.cbs.codes import get_data_code_map_json
 from anyway.data_adapters.cbs.parse_data import parse_by_mapping, format_df, get_dt
 
@@ -30,16 +30,20 @@ def read_data(excel_path, rows=None):
 
 
 # extract
-cbs_raw_df = read_data(CBS_DATA_PATH, 20)
+cbs_raw_df = read_data(CBS_DATA_PATH, 100)
 cbs_data_mapping_df = read_data(CBS_CODES_PATH)
+# cbs_data_mapping_df = cbs_data_mapping_df .drop_duplicates(COL_CODE_JUNCTION)
+# cbs_raw_df = cbs_raw_df[cbs_raw_df.ZOMET_LO_IRONI.notnull()]
+
 cbs_column_mapping_df = read_data(CBS_FIELDS_CODES_PATH)
 cbs_street_mapping_df = read_data(CBS_STREET_CODES_PATH)
 cbs_non_urban_junction_mapping_df = read_data(NON_URBAN_CODES_PATH)
 
 # transform
 col_names_map = get_col_code_map_json(cbs_column_mapping_df)
-field_map = get_data_code_map_json(cbs_data_mapping_df, col_names_map, value_languages)
 non_urban_junction_map = get_non_urban_code_map_json(cbs_non_urban_junction_mapping_df)
+field_map = get_data_code_map_json(cbs_data_mapping_df, col_names_map, value_languages)
+update_nested_mapping('94', non_urban_junction_map, field_map, value_languages)
 parsed_df = parse_by_mapping(cbs_raw_df, col_names_map, field_map, 'hebrew')
 format_df = format_df(parsed_df, convert_fields, DT)
 
