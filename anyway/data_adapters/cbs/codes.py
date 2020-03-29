@@ -55,12 +55,20 @@ def get_non_urban_code_map_json(mapping_df):
 
 
 def get_street_map_json(street_mapping_df):
-    #TODO: pre step - create an concat ishuv+semel_rehov
-    #TODO: read thhe mapping street as concat ishuv+semel_rehov
-    #TODO: add json values to SHEM_RECHOV
+    # TODO: BUG!: street names convert not rigth, check if the dict comes rigth with the excel mapping, if so check the fields
+    # TODO: add language nested mapping
     street_mapping_json = {}
     for field in street_mapping_df.values.tolist():
-        street_mapping_json[field[0]] = str(int(field[1]))
+        city_code = int(field[0])
+        street_code = int(field[1])
+        street_name = field[2]
+        if (city_code in street_mapping_json):
+            street_mapping_json[city_code][street_code] = street_name
+            # street_mapping_json[city_code].append({street_code: street_name})
+        #     # street_mapping_json[field[0]].append(street_map)
+        else:
+            street_mapping_json[city_code] = {street_code: street_name}
+    return street_mapping_json
 
 
 def translate(text, desired_language, current_language='hebrew'):
