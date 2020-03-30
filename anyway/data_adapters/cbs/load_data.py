@@ -49,7 +49,7 @@ field_map = get_data_code_map_json(cbs_data_mapping_df, col_names_map, value_lan
 update_nested_mapping('94', non_urban_junction_map, field_map, value_languages)
 parsed_df = parse_by_mapping(cbs_raw_df, col_names_map, field_map, 'hebrew')
 parsed_df['REHOV1'] = parsed_df['REHOV1'].astype('Int64')
-parsed_df['REHOV1'] = parsed_df['REHOV2'].astype('Int64')
+parsed_df['REHOV2'] = parsed_df['REHOV2'].astype('Int64')
 parsed_df = generate_id_column(parsed_df, 'SEMEL_YISHUV', 'REHOV1', 'street1')
 parsed_df = generate_id_column(parsed_df, 'SEMEL_YISHUV', 'REHOV2', 'street2')
 streets_names_map = get_street_map_json(cbs_street_mapping_df)
