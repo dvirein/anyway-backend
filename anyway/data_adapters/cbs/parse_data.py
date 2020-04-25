@@ -16,7 +16,7 @@ def parse_by_mapping(df, col_map, value_map, lang):
     return df
 
 
-def parse_by_mapping_street(df, value_map):  # lang
+def parse_by_mapping_street(df, value_map, lang):
     street_cols = ['street1', 'street2']
     for column in street_cols:
         idx = 0
@@ -25,7 +25,7 @@ def parse_by_mapping_street(df, value_map):  # lang
                 city_code = int(re.search('(\d+)_\d+', row).group(1))
                 street_code = int(re.search('\d+_(\d+)', row).group(1))
                 if street_code in value_map.get(city_code, {}):
-                    df.at[idx, column] = value_map.get(city_code, {}).get(street_code, {})  # .get(lang)
+                    df.at[idx, column] = value_map.get(city_code, {}).get(street_code, {}).get(lang)
                 else:
                     df.at[idx, column] = None
             idx += 1
@@ -54,9 +54,9 @@ def generate_id_column(df, col1, col2, new_column_name, remove_partial_concat=Tr
 
 
 def _remove_partial_concat(column):
-    column = column.str.replace(r'^\d+_$', "")
-    column = column.str.replace(r'^_\d+$', "")
+    column = column.str.replace(r'^\d+_$|^_\d+$', "")
     return column
+
 
 def _drop_unnecessary_columns(df, allowed_columns):
     drop_columns = [column for column in df.columns.values if column not in allowed_columns]
@@ -69,5 +69,3 @@ def _drop_unnecessary_columns(df, allowed_columns):
 def _str_number(column):
     column = column.astype(str)
     return column.replace('nan', '')
-
-

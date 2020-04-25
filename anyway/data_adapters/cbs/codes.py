@@ -54,20 +54,19 @@ def get_non_urban_code_map_json(mapping_df):
     return column_mapping_json
 
 
-def get_street_map_json(street_mapping_df):
-    # TODO: BUG!: street names convert not rigth, check if the dict comes rigth with the excel mapping, if so check the fields
-    # TODO: add language nested mapping
+def get_street_map_json(street_mapping_df, translate_languages):
     street_mapping_json = {}
     for field in street_mapping_df.values.tolist():
+        street_name = field[2]
+        language = {'hebrew': street_name}
+        for lang in translate_languages:
+            language[lang] = translate(street_name, lang)
         city_code = int(field[0])
         street_code = int(field[1])
-        street_name = field[2]
         if (city_code in street_mapping_json):
-            street_mapping_json[city_code][street_code] = street_name
-            # street_mapping_json[city_code].append({street_code: street_name})
-        #     # street_mapping_json[field[0]].append(street_map)
+            street_mapping_json[city_code][street_code] = language
         else:
-            street_mapping_json[city_code] = {street_code: street_name}
+            street_mapping_json[city_code] = {street_code: language}
     return street_mapping_json
 
 

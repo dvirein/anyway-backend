@@ -52,8 +52,8 @@ parsed_df['REHOV1'] = parsed_df['REHOV1'].astype('Int64')
 parsed_df['REHOV2'] = parsed_df['REHOV2'].astype('Int64')
 parsed_df = generate_id_column(parsed_df, 'SEMEL_YISHUV', 'REHOV1', 'street1')
 parsed_df = generate_id_column(parsed_df, 'SEMEL_YISHUV', 'REHOV2', 'street2')
-streets_names_map = get_street_map_json(cbs_street_mapping_df)
-parsed_df = parse_by_mapping_street(parsed_df, streets_names_map)
+streets_names_map = get_street_map_json(cbs_street_mapping_df, value_languages)
+parsed_df = parse_by_mapping_street(parsed_df, streets_names_map, 'hebrew')
 
 format_df = format_df(parsed_df, convert_fields, DT)
 
