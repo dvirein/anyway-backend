@@ -1,6 +1,6 @@
 value_languages = ['english', 'arabic', 'russian']
 
-convert_fields = {
+cbs_general_convert_fields = {
     # "SUG_TIK_MISHTARA": "file_type_police",
     "SUG_TIK": "file_type",
     "ISHUV": "settlement",
@@ -64,7 +64,11 @@ convert_fields = {
     "ZURAT_ISHUV": "yishuv_shape"
 }
 
-involved_csv_convert_fields = {
+cbs_involved_convert_fields = {
+    # "SUG_TIK_MISHTARA": "file_type_police",
+    "PK_TEUNA_FIKT": "id",
+    "SHNAT_TEUNA": "accident_year",
+    "HODESH_TEUNA": "accident_month",
     "SUG_MEORAV": "involved_type",
     "SHNAT_HOZAA": "license_acquiring_date",
     "KVUZA_GIL": "age_group",
@@ -92,7 +96,12 @@ involved_csv_convert_fields = {
     "MAXAIS_LMS": "injury_severity_mais"
 }
 
-vehicles_data_convert_fields = {
+cbs_vehicles_convert_fields = {
+    # "SUG_TIK_MISHTARA": "file_type_police",
+    "PK_TEUNA_FIKT": "id",
+    "MISPAR_REHEV_FIKT": "car_id",
+    "SHNAT_TEUNA": "accident_year",
+    "HODESH_TEUNA": "accident_month",
     "NEFAH": "engine_volume",
     "SHNAT_YITZUR": "manufacturing_year",
     "KIVUNE_NESIA": "driving_directions",
@@ -101,5 +110,6 @@ vehicles_data_convert_fields = {
     "SUG_REHEV_LMS": "vehicle_type_vehicles",
     "MEKOMOT_YESHIVA_LMS": "seats",
     "MISHKAL_KOLEL_LMS": "total_weight",
-    "NEZEK": "vehicle_damage"
+    "NEZEK": "vehicle_damage",
+    "SUG_TIK": "file_type"
 }
