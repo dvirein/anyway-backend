@@ -1,5 +1,3 @@
-value_languages = ['english', 'arabic', 'russian']
-
 cbs_general_convert_fields = {
     # "SUG_TIK_MISHTARA": "file_type_police",
     "SUG_TIK": "file_type",
@@ -26,15 +24,15 @@ cbs_general_convert_fields = {
     "SHAA": "accident_hour",
     "X": "x",
     "Y": "y",
-    "SUG_TEUNA": "accident_type",  # part of the desciption
-    "HUMRAT_TEUNA": "accident_severity",  # part of the desciption
-    "STATUS_IGUN": "location_accuracy",  # part of the desciption
+    "SUG_TEUNA": "accident_type",
+    "HUMRAT_TEUNA": "accident_severity",
+    "STATUS_IGUN": "location_accuracy",
     "PK_TEUNA_FIKT": "id",
     "BAYIT": "house_number",
-    "SUG_DEREH": "road_type",  # part of the desciption
-    "SUG_YOM": "day_type",  # part of the desciption
-    "ZURAT_DEREH": "road_shape",  # part of the desciption
-    "YEHIDA": "police_unit",  # part of the desciption
+    "SUG_DEREH": "road_type",
+    "SUG_YOM": "day_type",
+    "ZURAT_DEREH": "road_shape",
+    "YEHIDA": "police_unit",
     "HAD_MASLUL": "one_lane",
     "RAV_MASLUL": "multi_lane",
     "MEHIRUT_MUTERET": "speed_limit",
