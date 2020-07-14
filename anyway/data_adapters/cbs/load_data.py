@@ -4,16 +4,26 @@ import pandas as pd
 
 from anyway.data_adapters.cbs import parse_data
 from anyway.data_adapters.cbs.config import paths
+from anyway.data_adapters.cbs.utils.logger import CustomFormatter
+
 
 # TODO: add many logs(some only for debbug mode)
 # TODO: add encoding='ISO-8859-8' to config
 
-logging.basicConfig(level=logging.DEBUG)
+
+# create logger with 'spam_application'
+logger = logging.getLogger("Anyway")
+logger.setLevel(logging.DEBUG)
+# create console handler with a higher log level
+ch = logging.StreamHandler()
+ch.setLevel(logging.DEBUG)
+ch.setFormatter(CustomFormatter())
+logger.addHandler(ch)
 
 
 def read_data(excel_path, rows=None):
     df = pd.read_csv(excel_path, encoding='ISO-8859-8', nrows=rows)
-    logging.DEBUG("extracted data from {}".format(excel_path))
+    logger.debug("extracted data from {}".format(excel_path))
     return df
 
 
@@ -23,7 +33,7 @@ data_mapping_df = read_data(paths.CBS_CODES_PATH)
 
 def load_data(df, path):
     df.to_csv(path, encoding='ISO-8859-8', index=False)
-    logging.DEBUG("data loaded to {}".format(path))
+    logger.debug("data loaded to {}".format(path))
 
 
 def update_cbs_general():

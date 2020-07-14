@@ -31,6 +31,7 @@ def _api_translate(text, desired_language, current_language):
     return ""
 
 
+
 # TODO: connect to google
 def _api_transliterate(text, desired_language, current_language):
     return ""

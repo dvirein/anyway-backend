@@ -1,6 +1,8 @@
 import logging
 import re
 
+from anyway.data_adapters.cbs.load_data import logger
+
 
 def parse_by_mapping(df, col_map, value_map, lang):
     for column in list(df.columns.values):
@@ -61,7 +63,7 @@ def _remove_partial_concat(column):
 def _drop_unnecessary_columns(df, allowed_columns):
     drop_columns = [column for column in df.columns.values if column not in allowed_columns]
     if drop_columns:
-        logging.warning(f"Unknown columns has been found: {drop_columns} consider add to mapping fields names")
+        logger.warning(f"Unknown columns has been found: {drop_columns} consider add to mapping fields names")
     df = df.drop(columns=drop_columns)
     return df
 
