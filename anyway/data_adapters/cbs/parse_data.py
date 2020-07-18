@@ -37,18 +37,9 @@ def parse_general_cbs_data(raw_df, col_name_map_df, data_map_df, non_urban_junct
     return format_df(parsed_df, cbs_general_convert_fields, dt)
 
 
-# TODO: combine both of those functions below
-def parse_involved_cbs_data(raw_df, col_name_map_df, data_map_df):
-    col_names_map = generate_col_name_code_map(col_name_map_df)
-    field_map = generate_data_code_map(data_map_df, col_names_map, value_languages)
-    parsed_df = parse_by_mapping(raw_df, col_names_map, field_map, 'hebrew')
-    dt = get_dt(CBS_GENERAL_DATA_PATH)
-    return format_df(parsed_df, cbs_involved_convert_fields, dt)
-
-
-def parse_vehicles_cbs_data(raw_df, col_name_map_df, data_map_df):
-    col_names_map = generate_col_name_code_map(col_name_map_df)
-    field_map = generate_data_code_map(data_map_df, col_names_map, value_languages)
-    parsed_df = parse_by_mapping(raw_df, col_names_map, field_map, 'hebrew')
+def parse_cbs_data(cbs_table):
+    col_names_map = generate_col_name_code_map(cbs_table.column_mapping_df)
+    field_map = generate_data_code_map(cbs_table.data_mapping_df, col_names_map, value_languages)
+    parsed_df = parse_by_mapping(cbs_table.raw_df, col_names_map, field_map, 'hebrew')
     dt = get_dt(CBS_GENERAL_DATA_PATH)
     return format_df(parsed_df, cbs_vehicles_convert_fields, dt)
